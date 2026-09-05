@@ -23,6 +23,17 @@ Zhanguang Zhang, Zhiyuan Li, Behnam Rahmati, Rui Heng Yang, Yintao Ma, Amir Raso
 > This repository is a placeholder. The paper and project page are live; **code release is in progress**.
 > Watch or star the repo to be notified when it lands.
 
+## Summary
+
+A robustness study testing whether world action models actually generalize better than vision-language-action models, and what they cost to run.
+
+## Key Contributions
+
+- A controlled robustness comparison of world action models (WAMs) against VLAs under systematic perturbations.
+- Evaluation across RoboTwin 2.0-Plus and LIBERO-Plus, covering perturbation types that isolate different generalization failures.
+- Analysis of the inference-cost gap that limits WAM deployment in real robotic systems.
+- Case studies contrasting IDM-based and joint-denoising WAM designs under limited training-data diversity.
+
 ## Abstract
 
 Robot action planning in the real world is challenging as it requires not only understanding the current state of the environment but also predicting how it will evolve in response to actions. Vision-language-action (VLA), which repurpose large-scale vision-language models for robot action generation using action experts, have achieved notable success across a variety of robotic tasks. Nevertheless, their performance remains constrained by the scope of their training data, exhibiting limited generalization to unseen scenarios and vulnerability to diverse contextual perturbations. More recently, world models have been revisited as an alternative to VLAs. These models, referred to as world action models (WAMs), are built upon world models that are trained on large corpora of video data to predict future states. With minor adaptations, their latent representation can be decoded into robot actions. It has been suggested that their explicit dynamic prediction capacity, combined with spatiotemporal priors acquired from web-scale video pretraining, enables WAMs to generalize more effectively than VLAs. In this paper, we conduct a comparative study of prominent state-of-the-art VLA policies and recently released WAMs. We evaluate their performance on the LIBERO-Plus and RoboTwin 2.0-Plus benchmarks under various visual and language perturbations. Our results show that WAMs achieve strong robustness, with LingBot-VA reaching 74.2% success rate on RoboTwin 2.0-Plus and Cosmos-Policy achieving 82.2% on LIBERO-Plus. While VLAs such as π_{0.5} can achieve comparable robustness on certain tasks, they typically require extensive training with diverse robotic datasets and varied learning objectives. Hybrid approaches that partially incorporate video-based dynamic learning exhibit intermediate robustness, highlighting the importance of how video priors are integrated.
@@ -46,7 +57,10 @@ pip install -r requirements.txt
 
 <img src="docs/static/results.png" width="100%">
 
-_Add a quantitative results table here._
+- Simpler embodied pre-training is a genuine advantage of WAMs over classic VLAs.
+- A single WAM inference step is at least **4.8× slower** than π0.5, limiting real-world deployment.
+- Fast-WAM matches the IDM-based LingBot-VA on RoboTwin 2.0-Plus, but its robustness **collapses on LIBERO-Plus** when training data lacks diversity.
+- Joint-denoising designs appear to depend more on training-data diversity than IDM-style designs that condition action on a predicted future state.
 
 ## Citation
 

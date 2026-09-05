@@ -29,13 +29,11 @@
 <style>
 :root{
   --bg:#ffffff; --fg:#1a1a1a; --muted:#6b7280; --rule:#e5e7eb;
-  --accent:#1d4ed8; --chip:#f3f4f6; --chipfg:#374151; --code:#f6f8fa;
+  --accent:#1d4ed8; --chip:#f3f4f6; --chipfg:#374151; --code:#f6f8fa; --tldr:#f5f8ff;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme=light]){
-  --bg:#0f1115; --fg:#e8eaed; --muted:#9aa3af; --rule:#242832;
-  --accent:#7aa2f7; --chip:#1a1e27; --chipfg:#c3c9d4; --code:#161a22;
-}}
+
 *{box-sizing:border-box}
+html{background:var(--bg)}
 body{margin:0;background:var(--bg);color:var(--fg);
   font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif;
   -webkit-font-smoothing:antialiased}
@@ -50,6 +48,12 @@ h1{font-size:clamp(28px,4.4vw,42px);line-height:1.18;margin:0 0 10px;letter-spac
 .authors .me{font-weight:700}
 .affil{color:var(--muted);font-size:14.5px;margin:6px 0 0}
 .notes{color:var(--muted);font-size:13px;margin:8px 0 0}
+.tldr{background:var(--tldr);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;
+  padding:18px 22px;margin:0;font-size:17.5px;line-height:1.6}
+ul.pts{margin:0;padding-left:22px}
+ul.pts li{margin:0 0 11px;line-height:1.62}
+ul.pts li::marker{color:var(--accent)}
+.res li{margin:0 0 9px}
 .contact{color:var(--muted);font-size:13.5px;margin:10px 0 0}
 .teaser{margin:34px 0 0}
 img{max-width:100%;height:auto;display:block;margin:0 auto;border-radius:8px}
@@ -97,8 +101,16 @@ a{color:var(--accent)}
 </div></header>
 <main class="wrap">
   <section>
+    <h2>Summary</h2>
+    <p class="tldr">A robustness study testing whether world action models actually generalize better than vision-language-action models, and what they cost to run.</p>
+  </section>
+  <section>
     <h2>Abstract</h2>
     <p class="abstract">Robot action planning in the real world is challenging as it requires not only understanding the current state of the environment but also predicting how it will evolve in response to actions. Vision-language-action (VLA), which repurpose large-scale vision-language models for robot action generation using action experts, have achieved notable success across a variety of robotic tasks. Nevertheless, their performance remains constrained by the scope of their training data, exhibiting limited generalization to unseen scenarios and vulnerability to diverse contextual perturbations. More recently, world models have been revisited as an alternative to VLAs. These models, referred to as world action models (WAMs), are built upon world models that are trained on large corpora of video data to predict future states. With minor adaptations, their latent representation can be decoded into robot actions. It has been suggested that their explicit dynamic prediction capacity, combined with spatiotemporal priors acquired from web-scale video pretraining, enables WAMs to generalize more effectively than VLAs. In this paper, we conduct a comparative study of prominent state-of-the-art VLA policies and recently released WAMs. We evaluate their performance on the LIBERO-Plus and RoboTwin 2.0-Plus benchmarks under various visual and language perturbations. Our results show that WAMs achieve strong robustness, with LingBot-VA reaching 74.2% success rate on RoboTwin 2.0-Plus and Cosmos-Policy achieving 82.2% on LIBERO-Plus. While VLAs such as π_{0.5} can achieve comparable robustness on certain tasks, they typically require extensive training with diverse robotic datasets and varied learning objectives. Hybrid approaches that partially incorporate video-based dynamic learning exhibit intermediate robustness, highlighting the importance of how video priors are integrated.</p>
+  </section>
+  <section>
+    <h2>Key Contributions</h2>
+    <ul class="pts"><li>A controlled robustness comparison of world action models (WAMs) against VLAs under systematic perturbations.</li><li>Evaluation across RoboTwin 2.0-Plus and LIBERO-Plus, covering perturbation types that isolate different generalization failures.</li><li>Analysis of the inference-cost gap that limits WAM deployment in real robotic systems.</li><li>Case studies contrasting IDM-based and joint-denoising WAM designs under limited training-data diversity.</li></ul>
   </section>
   <section>
     <h2>Method</h2>
@@ -113,6 +125,7 @@ a{color:var(--accent)}
       <img src="static/results.png" alt="Results">
       <figcaption>Qualitative results and comparison against baselines.</figcaption>
     </figure>
+    <ul class="pts res" style="margin-top:26px"><li>Simpler embodied pre-training is a genuine advantage of WAMs over classic VLAs.</li><li>A single WAM inference step is at least <strong>4.8× slower</strong> than π<sub>0.5</sub>, limiting real-world deployment.</li><li>Fast-WAM matches the IDM-based LingBot-VA on RoboTwin 2.0-Plus, but its robustness <strong>collapses on LIBERO-Plus</strong> when training data lacks diversity.</li><li>Joint-denoising designs appear to depend more on training-data diversity than IDM-style designs that condition action on a predicted future state.</li></ul>
   </section>
   <section id="bibtex">
     <h2>BibTeX</h2>
