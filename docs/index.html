@@ -48,6 +48,17 @@ h1{font-size:clamp(28px,4.4vw,42px);line-height:1.18;margin:0 0 10px;letter-spac
 .authors .me{font-weight:700}
 .affil{color:var(--muted);font-size:14.5px;margin:6px 0 0}
 .notes{color:var(--muted);font-size:13px;margin:8px 0 0}
+figure.fig{margin:0 0 34px}
+figure.fig:last-child{margin-bottom:0}
+.tbl-wrap{overflow-x:auto;margin:0 0 10px}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{padding:9px 14px;text-align:right;border-bottom:1px solid var(--rule);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+thead th{font-weight:600;color:var(--muted);font-size:12.5px;letter-spacing:.05em;
+  text-transform:uppercase;border-bottom:1.5px solid var(--fg)}
+tbody tr:last-child td{border-bottom:1.5px solid var(--fg)}
+.tbl-title{font-weight:600;font-size:15px;margin:0 0 12px}
+.tbl-note{color:var(--muted);font-size:13.5px;margin:8px 0 30px}
 .tldr{background:var(--tldr);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;
   padding:18px 22px;margin:0;font-size:17.5px;line-height:1.6}
 ul.pts{margin:0;padding-left:22px}
@@ -97,7 +108,8 @@ a{color:var(--accent)}
     <a class="btn" href="https://github.com/SajjadPSavoji/World-Action-Model-Robustness">Code</a>
     <a class="btn" href="#bibtex">BibTeX</a>
   </div>
-  <figure class="teaser"><img src="static/teaser.png" alt="WAM vs VLA teaser"></figure>
+  <figure class="teaser"><img src="static/teaser.png" alt="WAM vs VLA overview">
+    <figcaption>Examples of perturbations applied to RoboTwin 2.0-Plus tasks.</figcaption></figure>
 </div></header>
 <main class="wrap">
   <section>
@@ -113,19 +125,14 @@ a{color:var(--accent)}
     <ul class="pts"><li>A controlled robustness comparison of world action models (WAMs) against VLAs under systematic perturbations.</li><li>Evaluation across RoboTwin 2.0-Plus and LIBERO-Plus, covering perturbation types that isolate different generalization failures.</li><li>Analysis of the inference-cost gap that limits WAM deployment in real robotic systems.</li><li>Case studies contrasting IDM-based and joint-denoising WAM designs under limited training-data diversity.</li></ul>
   </section>
   <section>
-    <h2>Method</h2>
-    <figure>
-      <img src="static/method.png" alt="Method overview">
-      <figcaption>Overview of the proposed approach.</figcaption>
-    </figure>
+    <h2>Approach</h2>
+    <figure class="fig"><img src="static/approach1.png" alt="Future images predicted by Cosmos-policy. Ground-truth and p"><figcaption>Future images predicted by Cosmos-policy. Ground-truth and predicted images under noise, lighting, and texture perturbations.</figcaption></figure>
   </section>
   <section>
     <h2>Results</h2>
-    <figure>
-      <img src="static/results.png" alt="Results">
-      <figcaption>Qualitative results and comparison against baselines.</figcaption>
-    </figure>
-    <ul class="pts res" style="margin-top:26px"><li>Simpler embodied pre-training is a genuine advantage of WAMs over classic VLAs.</li><li>A single WAM inference step is at least <strong>4.8× slower</strong> than π<sub>0.5</sub>, limiting real-world deployment.</li><li>Fast-WAM matches the IDM-based LingBot-VA on RoboTwin 2.0-Plus, but its robustness <strong>collapses on LIBERO-Plus</strong> when training data lacks diversity.</li><li>Joint-denoising designs appear to depend more on training-data diversity than IDM-style designs that condition action on a predicted future state.</li></ul>
+    <ul class="pts res" style="margin-bottom:34px"><li>Simpler embodied pre-training is a genuine advantage of WAMs over classic VLAs.</li><li>A single WAM inference step is at least <strong>4.8× slower</strong> than π<sub>0.5</sub>, limiting real-world deployment.</li><li>Fast-WAM matches the IDM-based LingBot-VA on RoboTwin 2.0-Plus, but its robustness <strong>collapses on LIBERO-Plus</strong> when training data lacks diversity.</li><li>Joint-denoising designs appear to depend more on training-data diversity than IDM-style designs that condition action on a predicted future state.</li></ul>
+    
+    <figure class="fig"><img src="static/result1.png" alt="Case studies on RoboTwin 2.0-Plus comparing π₀.₅ and LingBot"><figcaption>Case studies on RoboTwin 2.0-Plus comparing π₀.₅ and LingBot-VA, with keyframes shown sequentially.</figcaption></figure>
   </section>
   <section id="bibtex">
     <h2>BibTeX</h2>
